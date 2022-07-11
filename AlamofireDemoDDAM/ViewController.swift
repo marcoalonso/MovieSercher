@@ -30,7 +30,9 @@ class ViewController: UIViewController {
         
         if !nombrePelicula.text!.isEmpty {
             
-            AF.request("http://www.omdbapi.com/?apikey=99cc4d2d&t=\(nombrePelicula.text ?? "")").responseDecodable(of: PeliculaModel.self) { (respuesta) in
+            let nombrePelicula = nombrePelicula.text?.replacingOccurrences(of: " ", with: "%20")
+            
+            AF.request("http://www.omdbapi.com/?apikey=99cc4d2d&t=\(nombrePelicula ?? "")").responseDecodable(of: PeliculaModel.self) { (respuesta) in
                 
                 //Como le hacemos para pintar la UI
                 self.tituloLabel.text = respuesta.value?.title ?? ""
